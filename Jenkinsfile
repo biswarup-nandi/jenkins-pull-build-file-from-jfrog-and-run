@@ -35,24 +35,26 @@ pipeline {
                 }
                 sh """
                     . venv/bin/activate
+                    ls -ltr dist/
                     /usr/bin/pip install dist/*.whl
+                    /usr/bin/pip list
                 """
             }
         }
 
-        stage('Run Main Function') {
-            steps {
-                script {
-                    def workspaceDir = pwd()
-                    echo "Workspace directory: ${workspaceDir}"
-                }
-                sh """
-                    cd \${WORKSPACE}/dbx_api_project
-                    . ../venv/bin/activate
-                    /usr/bin/python3 -m databricks_api
-                """
-            }
-        }
+        // stage('Run Main Function') {
+        //     steps {
+        //         script {
+        //             def workspaceDir = pwd()
+        //             echo "Workspace directory: ${workspaceDir}"
+        //         }
+        //         sh """
+        //             cd \${WORKSPACE}/dbx_api_project
+        //             . ../venv/bin/activate
+        //             /usr/bin/python3 -m databricks_api
+        //         """
+        //     }
+        // }
     }
 
     post {
