@@ -36,7 +36,7 @@ pipeline {
                         "files": [{
                             "pattern": "${ARTIFACTORY_REPO}/*.whl",
                             "target": "dist/",
-                            "sortBy" : ["Modified"],
+                            "sortBy" : ["modified"],
                             "sortOrder": "desc",
                             "limit": "1"
                         }]
