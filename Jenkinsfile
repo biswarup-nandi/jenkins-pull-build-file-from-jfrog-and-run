@@ -32,13 +32,15 @@ pipeline {
             steps {
                 script {
                     def server = Artifactory.server("${ARTIFACTORY_SERVER}")
-                    def downloadSpec = """{
+                    def latestArtifact = server.downloadSpec("""{
                         "files": [{
                             "pattern": "${ARTIFACTORY_REPO}/*.whl",
-                            "target": "dist/"
+                            "target": "dist/",
+                            "sortBy": ["created"],
+                            "sortOrder": "desc",
+                            "limit": 1
                         }]
-                    }"""
-                    server.download(downloadSpec)
+                    }""")
                 }
                 sh """
                     . venv/bin/activate
