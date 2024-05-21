@@ -44,7 +44,7 @@ pipeline {
             steps {
                 sh """
                     . venv/bin/activate
-                    dbx-utility
+                    python -m dbx_api_project.databricks_api
                 """
             }
         }
