@@ -32,20 +32,24 @@ pipeline {
             steps {
                 script {
                     def server = Artifactory.server("${ARTIFACTORY_SERVER}")
-                    def latestArtifact = server.downloadSpec("""{
+                    def latestArtifactInfo = server.downloadSpec("""{
                         "files": [{
                             "pattern": "${ARTIFACTORY_REPO}/*.whl",
-                            "target": "dist/",
                             "sortBy": ["created"],
                             "sortOrder": "desc",
-                            "limit": 1
+                            "limit": 1,
+                            "props": "sha1"
                         }]
                     }""")
+                    def latestArtifactUrl = latestArtifactInfo[0].downloadUri
+                    sh """
+                        wget -O dist/latest.wheel ${latestArtifactUrl}
+                    """
                 }
                 sh """
                     . venv/bin/activate
                     ls -ltr dist/
-                    pip install dist/*.whl
+                    pip install dist/latest.wheel
                     pip list
                 """
             }
