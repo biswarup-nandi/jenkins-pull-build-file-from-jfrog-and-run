@@ -43,8 +43,9 @@ pipeline {
         stage('Run Main Function') {
             steps {
                 sh """
-                    . venv/bin/activate
-                    /usr/bin/python3 -m dbx_api_project.databricks_api
+                    cd dbx_api_project
+                    . ../venv/bin/activate
+                    /usr/bin/python3 -m databricks_api
                 """
             }
         }
