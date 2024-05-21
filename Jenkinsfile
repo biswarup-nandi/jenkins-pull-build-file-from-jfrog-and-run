@@ -15,8 +15,9 @@ pipeline {
                     /usr/bin/python3 --version
                     /usr/bin/python3 -m venv venv
                     . venv/bin/activate
-                    /usr/bin/pip --version
-                    /usr/bin/pip install --upgrade pip
+                    python --version
+                    pip --version
+                    pip install --upgrade pip
                 """
             }
         }
@@ -36,8 +37,8 @@ pipeline {
                 sh """
                     . venv/bin/activate
                     ls -ltr dist/
-                    /usr/bin/pip install dist/*.whl
-                    /usr/bin/pip list
+                    pip install dist/*.whl
+                    pip list
                 """
             }
         }
@@ -46,7 +47,7 @@ pipeline {
             steps {
                 sh """
                     . venv/bin/activate
-                    /usr/bin/pip list
+                    pip list
                     dbx-utility
                 """
             }
