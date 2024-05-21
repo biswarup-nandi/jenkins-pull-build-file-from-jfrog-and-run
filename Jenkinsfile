@@ -36,7 +36,9 @@ pipeline {
                         "files": [{
                             "pattern": "${ARTIFACTORY_REPO}/*.whl",
                             "target": "dist/",
-                            "build" : "*/LATEST"
+                            "sortBy" : ["Modified"],
+                            "sortOrder": "desc",
+                            "limit": "1"
                         }]
                     }"""
                     server.download(downloadSpec)
