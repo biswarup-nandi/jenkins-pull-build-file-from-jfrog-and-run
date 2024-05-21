@@ -42,8 +42,12 @@ pipeline {
 
         stage('Run Main Function') {
             steps {
+                script {
+                    def workspaceDir = pwd()
+                    echo "Workspace directory: ${workspaceDir}"
+                }
                 sh """
-                    cd dbx_api_project
+                    cd \${WORKSPACE}/dbx_api_project
                     . ../venv/bin/activate
                     /usr/bin/python3 -m databricks_api
                 """
